@@ -2552,7 +2552,11 @@ pub fn setClipboardText(text: [*:0]const u8) void {
 }
 
 /// Get clipboard text content
-pub fn getClipboardText() [*:0]const u8 {
+pub fn getClipboardText() ?[]const u8 {
+    const maybe_text=cdef.GetClipboardText();
+    if (maybe_text==0){
+        return null;
+    }
     return std.mem.span(cdef.GetClipboardText());
 }
 
